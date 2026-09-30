@@ -75,13 +75,44 @@
             gap: 10px;
             padding: 14px 28px;
             border-radius: 6px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             position: relative;
             overflow: hidden;
+        }
+
+        /* Boutons Style Noir & Or */
+        .btn-gold-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #000000;
+            color: var(--gold-primary);
+            border: 1.5px solid var(--gold-primary);
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-gold-outline:hover {
+            background-color: #1a1a1a;
+            border-color: var(--gold-light);
+            color: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
+        }
+
+        .btn-gold-outline .whatsapp-icon-green {
+            color: var(--whatsapp-color);
+            font-size: 1.1rem;
         }
 
         .btn-gold {
@@ -95,45 +126,6 @@
             background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(197, 160, 89, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--gold-primary);
-            border: 1px solid var(--gold-primary);
-        }
-
-        .btn-outline:hover {
-            background: rgba(197, 160, 89, 0.1);
-            color: var(--gold-light);
-            border-color: var(--gold-light);
-            transform: translateY(-3px);
-        }
-
-        .btn-whatsapp {
-            background-color: var(--whatsapp-color);
-            color: #FFFFFF;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
-        }
-
-        .btn-whatsapp:hover {
-            background-color: var(--whatsapp-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
-        }
-
-        .btn-phone {
-            background-color: var(--phone-color);
-            color: #FFFFFF;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.2);
-        }
-
-        .btn-phone:hover {
-            background-color: var(--phone-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.35);
         }
 
         /* Header */
@@ -254,7 +246,7 @@
             flex-wrap: wrap;
         }
 
-        /* Info Bar & Badge Live */
+        /* Info Bar */
         .info-bar {
             background-color: var(--bg-card);
             border-top: 1px solid var(--border-color);
@@ -371,36 +363,25 @@
             transform: translateY(-2px);
         }
 
+        /* Grille des 4 soins */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
 
         .service-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 35px 28px;
+            padding: 30px 24px;
             border-radius: 10px;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(197, 160, 89, 0.08), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .service-card:hover::before { opacity: 1; }
         .service-card:hover {
             transform: translateY(-8px);
             background-color: var(--bg-card-hover);
@@ -419,8 +400,23 @@
             transition: transform 0.3s ease;
         }
         .service-card:hover .service-icon { transform: scale(1.1) rotate(5deg); }
-        .service-title { font-size: 1.25rem; margin-bottom: 12px; }
-        .service-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+        
+        .service-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-family: 'Cinzel', serif;
+        }
+
+        .service-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
 
         .service-action-link {
             color: var(--gold-primary);
@@ -430,118 +426,214 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
         .service-action-link:hover { color: var(--gold-light); gap: 10px; }
 
-        /* Équipe / À Propos */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.3fr;
-            gap: 50px;
-            align-items: center;
+        /* ÉQUIPE */
+        .team-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
-        .about-image-frame {
+        .practitioner-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 35px 20px;
+            padding: 30px;
+            width: 320px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
-        }
-
-        .practitioner-photo-container {
-            width: 190px; height: 190px;
-            margin: 0 auto 18px;
-            border-radius: 50%;
-            padding: 4px;
-            background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
-            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.3);
-            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .practitioner-photo {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            object-position: center 20%;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold-primary);
+            margin: 0 auto 20px auto;
             display: block;
+            background-color: #2a2a2a;
         }
 
-        .practitioner-name { font-size: 1.5rem; margin-bottom: 4px; }
-        .practitioner-role { color: var(--gold-primary); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-bottom: 20px; }
-
-        .google-reviews-badge {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(197, 160, 89, 0.25);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .google-reviews-badge:hover {
-            border-color: var(--gold-primary);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .google-stars {
-            color: #f1c40f;
-            font-size: 1.1rem;
+        .practitioner-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
             margin-bottom: 6px;
-            letter-spacing: 3px;
         }
 
-        .google-reviews-text {
-            font-size: 0.88rem;
-            color: var(--text-light);
+        .practitioner-subtitle {
+            color: var(--gold-primary);
+            font-size: 13px;
+            font-weight: 600;
             margin-bottom: 15px;
-            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .btn-google-profile {
-            display: inline-flex;
+        /* Style spécifique pour le lien vers les avis Google */
+        .google-reviews-mini-link {
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 auto 20px auto;
+        }
+
+        .google-reviews-mini {
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            background-color: #ffffff;
-            color: #202124;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 6px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            gap: 6px;
+            background: rgba(197, 160, 89, 0.1);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 13px;
+            color: var(--text-light);
             transition: all 0.3s ease;
-            width: 100%;
         }
 
-        .btn-google-profile:hover {
-            background-color: #f8f9fa;
+        .google-reviews-mini-link:hover .google-reviews-mini {
+            background: rgba(197, 160, 89, 0.25);
+            border-color: var(--gold-primary);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,255,255,0.15);
-            color: #4285F4;
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25);
         }
 
-        .about-text h3 { font-size: 1.7rem; margin-bottom: 20px; }
-        .about-text p { color: var(--text-body); margin-bottom: 15px; font-size: 0.95rem; }
+        .stars {
+            color: #FFD700;
+        }
 
-        .timeline {
-            margin-top: 30px;
-            border-left: 2px solid rgba(197, 160, 89, 0.4);
+        .parcours-details {
+            display: none;
+            flex: 1;
+            min-width: 300px;
+            max-width: 550px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--gold-primary);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: left;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .parcours-details h3 {
+            color: var(--gold-primary);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .parcours-details h4.sub-title-yellow {
+            color: #FFD700;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .parcours-details p {
+            color: var(--text-body);
+            line-height: 1.6;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .parcours-details ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+
+        .parcours-details ul li {
+            position: relative;
             padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-body);
+            font-size: 0.92rem;
+            line-height: 1.6;
         }
 
-        .timeline-item { margin-bottom: 20px; position: relative; }
-        .timeline-item::before {
-            content: '';
-            position: absolute; left: -26px; top: 5px;
-            width: 8px; height: 8px; border-radius: 50%;
-            background-color: var(--gold-primary);
-            box-shadow: 0 0 8px var(--gold-primary);
+        .parcours-details ul li::before {
+            content: "•";
+            color: var(--gold-primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
         }
-        .timeline-year { font-size: 0.8rem; color: var(--gold-primary); font-weight: 700; text-transform: uppercase; }
-        .timeline-title { font-size: 0.92rem; color: var(--text-light); font-weight: 500; margin-top: 2px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECTION STATISTIQUES / CHIFFRES CLÉS */
+        .stats-section {
+            padding: 60px 0 90px;
+            background-color: var(--bg-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .stat-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 45px 30px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(197, 160, 89, 0.4);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .stat-number-wrapper {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .stat-unit {
+            font-size: 1.5rem;
+            color: var(--gold-primary);
+            font-weight: 600;
+            margin-left: 4px;
+            vertical-align: super;
+        }
+
+        .stat-label {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
 
         /* FAQ Accordéon */
         .faq-container {
@@ -588,7 +680,7 @@
         }
 
         .faq-item.active .faq-answer {
-            max-height: 200px;
+            max-height: 300px;
             padding: 0 20px 20px 20px;
         }
 
@@ -600,34 +692,6 @@
         .faq-answer a:hover {
             color: var(--gold-light);
         }
-
-        /* Stats Section */
-        .stats-section {
-            padding: 60px 0;
-            background: linear-gradient(180deg, #171717 0%, var(--bg-dark) 100%);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            text-align: center;
-        }
-
-        .stat-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 30px 20px;
-            transition: transform 0.3s ease;
-        }
-        .stat-card:hover { transform: translateY(-5px); border-color: rgba(197, 160, 89, 0.4); }
-        .stat-icon { font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 12px; }
-        .stat-value { font-family: 'Cinzel', serif; font-size: 2.8rem; font-weight: 700; color: var(--text-light); margin-bottom: 5px; }
-        .stat-unit { font-size: 1.5rem; color: var(--gold-primary); }
-        .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
         /* Contact Section */
         .contact-grid {
@@ -735,10 +799,16 @@
             font-size: 0.82rem;
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 1100px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
             .hero-title { font-size: 2.2rem; }
             .hero-description { font-size: 1.1rem; }
-            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
         }
     </style>
@@ -783,8 +853,8 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
 
-            <button class="btn btn-whatsapp" id="openModalBtn">
-                <i class="fab fa-whatsapp"></i> Prendre RDV
+            <button class="btn-gold-outline" id="openModalBtn">
+                <i class="fab fa-whatsapp whatsapp-icon-green"></i> Prendre RDV
             </button>
         </div>
     </header>
@@ -793,13 +863,14 @@
     <section id="accueil" class="hero">
         <div class="container">
             <h1 class="hero-title">Centre de Physiothérapie & Rééducation</h1>
-            <p class="hero-description">Votre centre de soins et de rééducation à Baelen. Des traitements innovants adaptés à vos objectifs de santé et de performance.</p>
+            <p class="hero-description">Votre centre de soins et de rééducation à Baelen. Une prise en charge personnalisée adaptés à vos objectifs de santé et de performance.</p>
             
             <div class="hero-cta">
-                <button class="btn btn-whatsapp" id="openModalBtnHero">
-                    <i class="fab fa-whatsapp"></i> Prendre Rendez-vous en ligne
+                <button class="btn-gold-outline" id="openModalBtnHero">
+                    <i class="fab fa-whatsapp whatsapp-icon-green"></i> Prendre Rendez-vous en ligne
                 </button>
-                <a href="#soins" class="btn btn-outline">
+                
+                <a href="#soins" class="btn-gold-outline">
                     <i class="fas fa-arrow-down"></i> Découvrir nos soins
                 </a>
             </div>
@@ -810,7 +881,6 @@
     <div class="info-bar">
         <div class="container">
             <div class="info-grid">
-                <!-- Adresse cliquable vers Google Maps -->
                 <a href="https://www.google.com/maps/search/?api=1&query=Rue+de+l%27eglise+9+4837+Baelen" target="_blank" class="info-link" title="Ouvrir dans Google Maps">
                     <div class="info-item">
                         <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
@@ -821,7 +891,6 @@
                     </div>
                 </a>
 
-                <!-- Téléphone cliquable pour appeler directement -->
                 <a href="tel:+32494279799" class="info-link" title="Appeler le cabinet">
                     <div class="info-item">
                         <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
@@ -863,424 +932,413 @@
                 <button class="filter-btn" data-filter="postop">Post-Op & Autre</button>
             </div>
 
+            <!-- Grille des 4 Cartes de Soins -->
             <div class="services-grid">
+                <!-- Carte 1 -->
                 <div class="service-card" data-category="sport">
                     <div>
                         <div class="service-icon"><i class="fas fa-running"></i></div>
-                        <h3 class="service-title">Kinésithérapie du Sport</h3>
+                        <h3 class="service-title">KINÉSITHÉRAPIE DU SPORT</h3>
                         <p class="service-desc">Accompagnement spécifique pour sportifs. Réathlétisation, soin des entorses, déchirures musculaires et prévention des blessures.</p>
                     </div>
-                    <span class="service-action-link select-service" data-service="Kinésithérapie du Sport">Réserver ce soin <i class="fas fa-arrow-right"></i></span>
+                    <span class="service-action-link select-service" data-service="Kinésithérapie du Sport">Réserver ce soin &rarr;</span>
                 </div>
 
+                <!-- Carte 2 -->
                 <div class="service-card" data-category="osteopathie">
                     <div>
-                        <div class="service-icon"><i class="fas fa-hands-helping"></i></div>
-                        <h3 class="service-title">Ostéopathie</h3>
-                        <p class="service-desc">L'ostéopathie est une thérapie manuelle qui considère le corps dans sa globalité. Par des manipulations douces et ciblées, elle vise à relâcher les tensions musculaires et articulaires, améliorer la mobilité et soulager les douleurs chroniques ou aiguës (dos, cervicales, articulations).</p>
+                        <div class="service-icon"><i class="fas fa-hands"></i></div>
+                        <h3 class="service-title">OSTÉOPATHIE</h3>
+                        <p class="service-desc">L'ostéopathie est une thérapie manuelle qui considers le corps dans sa globalité. Par des manipulations douces et ciblées, elle vise à relâcher les tensions musculaires et articulaires, améliorer la mobilité et soulager les douleurs chroniques ou aiguës (dos, cervicales, articulations).</p>
                     </div>
-                    <span class="service-action-link select-service" data-service="Ostéopathie">Réserver ce soin <i class="fas fa-arrow-right"></i></span>
+                    <span class="service-action-link select-service" data-service="Ostéopathie">Réserver ce soin &rarr;</span>
                 </div>
 
+                <!-- Carte 3 -->
                 <div class="service-card" data-category="postop">
                     <div>
-                        <div class="service-icon"><i class="fas fa-hospital-user"></i></div>
-                        <h3 class="service-title">Kinésithérapie Post-Op</h3>
-                        <p class="service-desc">De la sortie du bloc au retour à l’autonomie : un accompagnement progressif et sécurisé pour restaurer force, mobilité et confiance après votre opération, grâce à des techniques adaptées et à l’utilisation de machines et d’appareils modernes.</p>
+                        <div class="service-icon"><i class="fas fa-user-md"></i></div>
+                        <h3 class="service-title">KINÉSITHÉRAPIE POST-OP</h3>
+                        <p class="service-desc">De la sortie du bloc au retour à l'autonomie : un accompagnement progressif et sécurisé pour restaurer force, mobilité et confiance après votre opération, grâce à des techniques adaptées et à l'utilisation de machines et d'appareils modernes.</p>
                     </div>
-                    <span class="service-action-link select-service" data-service="Kinésithérapie Post-Op">Réserver ce soin <i class="fas fa-arrow-right"></i></span>
+                    <span class="service-action-link select-service" data-service="Kinésithérapie Post-Op">Réserver ce soin &rarr;</span>
                 </div>
 
+                <!-- Carte 4 -->
                 <div class="service-card" data-category="postop">
                     <div>
                         <div class="service-icon"><i class="fas fa-bone"></i></div>
-                        <h3 class="service-title">Kinésithérapie Générale & Fonctionnelle</h3>
+                        <h3 class="service-title">KINÉSITHÉRAPIE GÉNÉRALE & FONCTIONNELLE</h3>
                         <p class="service-desc">Prise en charge globale des douleurs et pathologies du quotidien : entorses, tendinites, douleurs articulaires et musculaires, pour retrouver mobilité et confort dans les gestes de tous les jours.</p>
                     </div>
-                    <span class="service-action-link select-service" data-service="Kinésithérapie Générale & Fonctionnelle">Réserver ce soin <i class="fas fa-arrow-right"></i></span>
+                    <span class="service-action-link select-service" data-service="Kinésithérapie Générale & Fonctionnelle">Réserver ce soin &rarr;</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Équipe / À Propos -->
+    <!-- SECTION L'ÉQUIPE -->
     <section id="equipe" class="section" style="background-color: #171717;">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Votre Praticien</span>
+                <span class="section-tag">Notre Praticien</span>
                 <h2 class="section-title">L'Équipe du Centre</h2>
                 <div class="section-divider"></div>
             </div>
 
-            <div class="about-grid">
-                <div class="about-image-frame">
-                    <div class="practitioner-photo-container">
-                        <img src="IMG_6177_2.JPG" alt="Amaury Joiris" class="practitioner-photo">
-                    </div>
-                    <h3 class="practitioner-name">Amaury Joiris</h3>
-                    <span class="practitioner-role">Kinésithérapeute & Fondateur</span>
-
-                    <!-- Bloc Avis Google -->
-                    <div class="google-reviews-badge">
-                        <div class="google-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+            <div class="team-container">
+                <div class="practitioner-card">
+                    <img src="IMG_6177_2.JPG" alt="Amaury Joiris" class="practitioner-photo">
+                    
+                    <div class="practitioner-name">Amaury Joiris</div>
+                    <div class="practitioner-subtitle">Kinésithérapeute • Fondateur</div>
+                    
+                    <!-- Lien direct vers les avis Google d'Amaury Joiris -->
+                    <a href="https://www.google.com/search?q=Amaury+Joiris+Kin%C3%A9sith%C3%A9rapeute+Baelen+avis" target="_blank" class="google-reviews-mini-link" title="Consulter les avis Google d'Amaury Joiris">
+                        <div class="google-reviews-mini">
+                            <span class="stars">★★★★★</span>
+                            <strong>5.0</strong> (Avis Google)
                         </div>
-                        <p class="google-reviews-text">Avis Google & Témoignages</p>
-                        <a href="https://www.google.com/search?q=Amaury+Joiris+Physioris+Baelen" target="_blank" class="btn-google-profile">
-                            <i class="fab fa-google" style="color: #4285F4;"></i> Voir mon profil Google
-                        </a>
-                    </div>
+                    </a>
+
+                    <button class="btn-gold-outline" style="width: 100%; font-size: 0.88rem;" onclick="toggleParcours()">
+                        Découvrir mon parcours
+                    </button>
                 </div>
 
-                <div class="about-text">
-                    <h3>Une prise en charge moderne et rigoureuse</h3>
-                    <p>Diplômé en kinésithérapie en juin 2022 à la Haute École de la Province de Liège (HEPL - Le Barbou), je mets mon expérience et mes compétences au service de la santé de mes patients.</p>
-                    <p>Actuellement en 5ème et dernière année de formation en Ostéopathie, j'intègre une vision globale du corps humain pour proposer des soins personnalisés.</p>
+                <div id="parcoursBox" class="parcours-details">
+                    <h3>Parcours & Expertise</h3>
+                    <p>Kinésithérapeute diplômé de la Haute Ecole de la Province de Liège (HEPL) depuis 2022, j’accompagne principalement les patients en rééducation fonctionnelle, post-opératoire et sportive. Mon approche associe thérapie manuelle, exercice thérapeutique et technologies de rééducation.</p>
+                    
+                    <h4 class="sub-title-yellow">Expériences</h4>
+                    <ul>
+                        <li>Kiné libérale à La Calamine</li>
+                        <li>Kiné au sein de l'Hôpital d'Eupen ( St. Nikolaus Hospital )</li>
+                    </ul>
 
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <span class="timeline-year">Septembre 2018 - Juin 2022</span>
-                            <div class="timeline-title">Master en kinésithérapie avec distinction (HEPL - Le Barbou)</div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">Expériences Professionnelles</span>
-                            <div class="timeline-title">Kinésithérapeute au sein de l'hôpital d'Eupen (St Nikolaus Hospital) & en Maison de repos</div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">Cabinet Libéral</span>
-                            <div class="timeline-title">4 ans d'expérience en cabinet à La Calamine avant l'ouverture de Physioris à Baelen</div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">Formation en cours</span>
-                            <div class="timeline-title">5ème année d'Ostéopathie à l'International Academy of Osteopathy (IAO)</div>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">Formations Continues</span>
-                            <div class="timeline-title">Rééducation Sportive & Cupping Thérapie</div>
-                        </div>
-                    </div>
+                    <h4 class="sub-title-yellow">Formations</h4>
+                    <ul>
+                        <li>Ostéopathie IAO 5ème année</li>
+                        <li>Kiné du sport</li>
+                        <li>Thérapie par les ventouses</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section avec Compteurs Animés -->
+    <!-- SECTION CHIFFRES CLÉS / STATISTIQUES AVEC COMPTEUR ANIMÉ -->
     <section class="stats-section">
         <div class="container">
             <div class="stats-grid">
+                <!-- Carte 1 : Superficie du cabinet -->
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-ruler-combined"></i></div>
-                    <div class="stat-value"><span class="counter" data-target="135">0</span> <span class="stat-unit">m²</span></div>
-                    <div class="stat-label">Superficie du Cabinet</div>
+                    <div class="stat-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <div class="stat-number-wrapper">
+                        <span class="counter" data-target="135">0</span><span class="stat-unit">M²</span>
+                    </div>
+                    <div class="stat-label">Superficie du cabinet</div>
                 </div>
+
+                <!-- Carte 2 : Années d'expérience -->
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-user-shield"></i></div>
-                    <div class="stat-value"><span class="counter" data-target="4">0</span> <span class="stat-unit">+</span></div>
-                    <div class="stat-label">Années d'Expérience</div>
+                    <div class="stat-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="stat-number-wrapper">
+                        <span class="counter" data-target="4">0</span><span class="stat-unit">+</span>
+                    </div>
+                    <div class="stat-label">Années d'expérience</div>
                 </div>
+
+                <!-- Carte 3 : Soins personnalisés -->
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-heartbeat"></i></div>
-                    <div class="stat-value"><span class="counter" data-target="100">0</span> <span class="stat-unit">%</span></div>
-                    <div class="stat-label">Soins Personnalisés</div>
+                    <div class="stat-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="stat-number-wrapper">
+                        <span class="counter" data-target="100">0</span><span class="stat-unit">%</span>
+                    </div>
+                    <div class="stat-label">Soins personnalisés</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- Section FAQ -->
     <section id="faq" class="section">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Informations Utiles</span>
+                <span class="section-tag">Information Patients</span>
                 <h2 class="section-title">Questions Fréquentes</h2>
                 <div class="section-divider"></div>
             </div>
 
             <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Comment se déroule la première séance ?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        La première séance commence par un bilan complet de votre historique médical, de vos douleurs et de vos objectifs, suivi d'un examen clinique ciblé et des premiers soins.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Dois-je me munir d'une prescription médicale ?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        Oui, une prescription médicale de votre médecin est recommandée pour bénéficier d'un remboursement optimal par votre mutuelle en kinésithérapie.
-                    </div>
-                </div>
-
+                <!-- Nouvelle Question de Stationnement -->
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>Où se garer lors de votre venue au cabinet ?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        Le cabinet est situé Rue de l'église 9 à Baelen avec des facilités de stationnement aisées à proximité immédiate. Vous trouverez notamment des places de stationnement gratuites sur la place située à hauteur du <a href="https://www.google.com/maps/search/?api=1&query=Rue+de+l%27Eglise+Baelen+Pizza+Bella" target="_blank">Pizza Bella à Baelen</a>.
+                        <p>Le cabinet est situé Rue de l'église 9 à Baelen avec des facilités de stationnement aisées à proximité immédiate. Vous trouverez notamment des places de stationnement gratuites sur la place située à hauteur du <a href="https://www.google.com/maps/search/?api=1&query=Pizza+Bella+Baelen" target="_blank">Pizza Bella à Baelen</a>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Faut-il une prescription médicale pour venir au cabinet ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pour la kinésithérapie, une prescription médicale est requise afin de bénéficier du remboursement par la mutuelle. En revanche, les séances d'ostéopathie ne nécessitent pas d'ordonnance préalable.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Comment prendre rendez-vous ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Vous pouvez nous contacter directement par téléphone, via WhatsApp au <a href="https://wa.me/32494279799">+32 494 27 97 99</a> ou utiliser le bouton de prise de rendez-vous présent sur le site.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Quels sont les moyens de paiement acceptés ?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nous acceptons les paiements en espèces ainsi que les virements électroniques/Payconiq à la fin de la séance ou de la série de soins.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Section Contact -->
     <section id="contact" class="section" style="background-color: #171717;">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Localisation</span>
-                <h2 class="section-title">Infos Pratiques & Rendez-vous</h2>
+                <span class="section-tag">Localisation & Contact</span>
+                <h2 class="section-title">Venir au Cabinet</h2>
                 <div class="section-divider"></div>
             </div>
 
             <div class="contact-grid">
                 <div class="contact-card">
-                    <h3>Contactez le Cabinet</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Les prises de rendez-vous s'effectuent directement par message WhatsApp ou par téléphone.</p>
+                    <h3>Physioris Baelen</h3>
+                    <p style="color: var(--text-muted); margin-top: 5px;">Un espace dédié à la santé, la mobilité et la performance.</p>
 
                     <ul class="contact-info-list">
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <div><h5>Adresse</h5><p>Rue de l'église 9, 4837 Baelen, Belgique</p></div>
+                            <div>
+                                <h5>Adresse</h5>
+                                <p>Rue de l'église 9, 4837 Baelen</p>
+                            </div>
                         </li>
                         <li>
-                            <i class="fab fa-whatsapp"></i>
-                            <div><h5>WhatsApp / Téléphone</h5><p>+32 494 27 97 99</p></div>
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h5>Téléphone & WhatsApp</h5>
+                                <p>+32 494 27 97 99</p>
+                            </div>
                         </li>
                         <li>
-                            <i class="fas fa-envelope"></i>
-                            <div><h5>E-mail</h5><p>physioris@outlook.be</p></div>
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h5>Horaires</h5>
+                                <p>Lundi au Vendredi : 08:00 - 19:00</p>
+                            </div>
                         </li>
                     </ul>
-
-                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
-                        <button class="btn btn-whatsapp" id="openModalBtnContact" style="width: 100%;">
-                            <i class="fab fa-whatsapp"></i> Envoyer un message WhatsApp
-                        </button>
-                        <a href="tel:+32494279799" class="btn btn-phone" style="width: 100%;">
-                            <i class="fas fa-phone-alt"></i> Appeler le cabinet
-                        </a>
-                    </div>
                 </div>
 
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2524.382025112104!2d5.969188876935293!3d50.63854137162758!2m3!1f0!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c093a0b3687313%3A0xb351e23a41b253b2!2sRue%20de%20l'Eglise%209%2C%204837%20Baelen!5e0!3m2!1sfr!2sbe!4v1710000000000!5m2!1sfr!2sbe" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2527.123456789012!2d5.969876!3d50.630123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c093a0a0000001%3A0x0!2sRue%20de%20l&#39;Eglise%209%2C%204837%20Baelen!5e0!3m2!1sfr!2sbe!4v1600000000000!5m2!1sfr!2sbe" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal Interactive de RDV -->
-    <div class="modal-overlay" id="rdvModal">
+    <!-- Modal de RDV -->
+    <div class="modal-overlay" id="modalOverlay">
         <div class="modal-card">
             <button class="modal-close" id="closeModalBtn">&times;</button>
-            <h3 class="modal-title">Prise de Rendez-vous Rapide</h3>
-            <p class="modal-desc">Remplissez ces informations pour générer un message direct vers le WhatsApp d'Amaury Joiris.</p>
+            <h3 class="modal-title">Prendre Rendez-vous</h3>
+            <p class="modal-desc">Envoyez-nous un message direct via WhatsApp pour réserver votre séance.</p>
             
-            <div class="form-group">
-                <label>Votre Nom et Prénom</label>
-                <input type="text" id="modalName" class="form-control" placeholder="ex: Jean Dupont">
-            </div>
-
-            <div class="form-group">
-                <label>Motif de Consultation / Soin</label>
-                <select id="modalService" class="form-control">
-                    <option value="Kinésithérapie du Sport">Kinésithérapie du Sport</option>
-                    <option value="Ostéopathie">Ostéopathie</option>
-                    <option value="Kinésithérapie Post-Op">Kinésithérapie Post-Op</option>
-                    <option value="Kinésithérapie Générale & Fonctionnelle">Kinésithérapie Générale & Fonctionnelle</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Disponibilités souhaitées</label>
-                <input type="text" id="modalTime" class="form-control" placeholder="ex: De préférence en matinée, du lundi au mercredi">
-            </div>
-
-            <button class="btn btn-whatsapp" id="sendWhatsAppModal" style="width: 100%; margin-top: 10px;">
-                <i class="fab fa-whatsapp"></i> Envoyer ma demande sur WhatsApp
-            </button>
+            <form id="rdvForm">
+                <div class="form-group">
+                    <label>Nom & Prénom</label>
+                    <input type="text" class="form-control" id="patientName" placeholder="Ex: Jean Dupont" required>
+                </div>
+                <div class="form-group">
+                    <label>Soin désiré</label>
+                    <select class="form-control" id="patientService">
+                        <option value="Kinésithérapie du Sport">Kinésithérapie du Sport</option>
+                        <option value="Ostéopathie">Ostéopathie</option>
+                        <option value="Kinésithérapie Post-Op">Kinésithérapie Post-Op</option>
+                        <option value="Kinésithérapie Générale & Fonctionnelle">Kinésithérapie Générale & Fonctionnelle</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-gold-outline" style="width: 100%; margin-top: 10px;">
+                    <i class="fab fa-whatsapp whatsapp-icon-green"></i> Envoyer sur WhatsApp
+                </button>
+            </form>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Physioris - Centre de Rééducation. Tous droits réservés.</p>
+            <p>&copy; 2026 PHYSIORIS - Tous droits réservés. Centre de Kinésithérapie & Ostéopathie à Baelen.</p>
         </div>
     </footer>
 
-   <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Header scroll effect
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) header.classList.add('scrolled');
-                else header.classList.remove('scrolled');
-            });
-
-            // Statut dynamique d'ouverture
-            const updateCabinetStatus = () => {
-                const now = new Date();
-                const day = now.getDay();
-                const hour = now.getHours();
-                const statusBadge = document.getElementById('cabinet-status');
-                const statusText = document.getElementById('status-text');
-                const isOpen = (day >= 1 && day <= 5) && (hour >= 8 && hour < 19);
-
-                if (isOpen) {
-                    statusBadge.className = "status-badge open";
-                    statusText.innerText = "Cabinet Ouvert";
-                } else {
-                    statusBadge.className = "status-badge closed";
-                    statusText.innerText = "Cabinet Fermé";
-                }
-            };
-            updateCabinetStatus();
-
-            // --- ANIMATION DES COMPTEURS (CORRIGÉE & FORCÉE) ---
-            const counters = document.querySelectorAll('.counter');
-            let hasAnimated = false;
-
-            const runCounters = () => {
-                if (hasAnimated) return;
-                hasAnimated = true;
-
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    let current = 0;
-                    // Vitesse d'incrémentation (plus le chiffre est petit, plus c'est rapide)
-                    const duration = 1500; // 1.5 seconde pour l'animation complète
-                    const stepTime = 20; 
-                    const steps = duration / stepTime;
-                    const increment = target / steps;
-
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            counter.innerText = target;
-                            clearInterval(timer);
-                        } else {
-                            counter.innerText = Math.floor(current);
-                        }
-                    }, stepTime);
-                });
-            };
-
-            // Déclenchement via l'Intersection Observer
-            const statsSection = document.querySelector('.stats-section');
-            if (statsSection) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            runCounters();
-                        }
-                    });
-                }, { threshold: 0.1 }); // Se déclenche dès que 10% de la section est visible
-
-                observer.observe(statsSection);
+    <!-- Scripts JS -->
+    <script>
+        function toggleParcours() {
+            var box = document.getElementById("parcoursBox");
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
             }
+        }
 
-            // Fallback de sécurité : si la section est déjà visible à l'écran au chargement
-            setTimeout(() => {
-                const rect = statsSection.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom >= 0) {
-                    runCounters();
-                }
-            }, 500);
+        // Animation de comptage automatique au scroll (Intersection Observer)
+        const counters = document.querySelectorAll('.counter');
+        let animated = false;
 
-            // Filtres interactifs des soins
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const serviceCards = document.querySelectorAll('.service-card');
+        function startCounters() {
+            counters.forEach(counter => {
+                counter.innerText = '0';
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // 2 secondes de durée totale
+                const stepTime = 20; // mise à jour toutes les 20ms
+                const steps = duration / stepTime;
+                const increment = target / steps;
 
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const filter = btn.getAttribute('data-filter');
-
-                    serviceCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.classList.remove('hide');
-                        } else {
-                            card.classList.add('hide');
-                        }
-                    });
-                });
-            });
-
-            // Accordéon FAQ Interactif
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                question.addEventListener('click', () => {
-                    const isActive = item.classList.contains('active');
-                    faqItems.forEach(i => i.classList.remove('active'));
-                    if (!isActive) item.classList.add('active');
-                });
-            });
-
-            // Gestion de la Modal interactive de RDV
-            const modal = document.getElementById('rdvModal');
-            const openBtns = [document.getElementById('openModalBtn'), document.getElementById('openModalBtnHero'), document.getElementById('openModalBtnContact')];
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const sendWhatsAppBtn = document.getElementById('sendWhatsAppModal');
-
-            openBtns.forEach(btn => {
-                if(btn) btn.addEventListener('click', () => modal.classList.add('active'));
-            });
-
-            if(closeModalBtn) closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.classList.remove('active');
-            });
-
-            document.querySelectorAll('.select-service').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const serviceName = e.target.getAttribute('data-service') || e.target.closest('.service-card').querySelector('.service-title').innerText;
-                    const select = document.getElementById('modalService');
-                    for(let i=0; i<select.options.length; i++) {
-                        if(select.options[i].text.includes(serviceName)) {
-                            select.selectedIndex = i;
-                            break;
-                        }
+                let current = 0;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.innerText = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.innerText = Math.ceil(current);
                     }
-                    modal.classList.add('active');
+                }, stepTime);
+            });
+        }
+
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animated) {
+                        startCounters();
+                        animated = true; // Empêche de rejouer en boucle
+                    }
                 });
-            });
+            }, { threshold: 0.3 });
 
-            sendWhatsAppBtn.addEventListener('click', () => {
-                const name = document.getElementById('modalName').value.trim();
-                const service = document.getElementById('modalService').value;
-                const time = document.getElementById('modalTime').value.trim();
+            observer.observe(statsSection);
+        }
 
-                let message = `Bonjour Amaury, je souhaite prendre rendez-vous au Centre Physioris.`;
-                if(name) message = `Bonjour Amaury, je m'appelle ${name} et je souhaite prendre rendez-vous pour : *${service}*.`;
-                if(time) message += ` Mes disponibilités : ${time}.`;
+        // Filtre des soins
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const serviceCards = document.querySelectorAll('.service-card');
 
-                const encodedUrl = `https://wa.me/32494279799?text=${encodeURIComponent(message)}`;
-                window.open(encodedUrl, '_blank');
-                modal.classList.remove('active');
-            });
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-            const cards = document.querySelectorAll('.service-card');
-            cards.forEach(card => {
-                card.addEventListener('mousemove', e => {
-                    const rect = card.getBoundingClientRect();
-                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                const filter = btn.getAttribute('data-filter');
+
+                serviceCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.classList.remove('hide');
+                    } else {
+                        card.classList.add('hide');
+                    }
                 });
             });
         });
+
+        // FAQ Accordéon
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Modale RDV
+        const modalOverlay = document.getElementById('modalOverlay');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const openModalBtnHero = document.getElementById('openModalBtnHero');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const rdvForm = document.getElementById('rdvForm');
+
+        function openModal() { modalOverlay.classList.add('active'); }
+        function closeModal() { modalOverlay.classList.remove('active'); }
+
+        if(openModalBtn) openModalBtn.addEventListener('click', openModal);
+        if(openModalBtnHero) openModalBtnHero.addEventListener('click', openModal);
+        if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        document.querySelectorAll('.select-service').forEach(link => {
+            link.addEventListener('click', () => {
+                const serviceName = link.getAttribute('data-service');
+                document.getElementById('patientService').value = serviceName;
+                openModal();
+            });
+        });
+
+        rdvForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('patientName').value;
+            const service = document.getElementById('patientService').value;
+            const text = encodeURIComponent(`Bonjour, je m'appelle ${name}. Je souhaite prendre rendez-vous pour : ${service}.`);
+            window.open(`https://wa.me/32494279799?text=${text}`, '_blank');
+            closeModal();
+        });
+
+        // État d'ouverture du cabinet
+        function updateCabinetStatus() {
+            const now = new Date();
+            const day = now.getDay();
+            const hour = now.getHours();
+            const statusBadge = document.getElementById('cabinet-status');
+            const statusText = document.getElementById('status-text');
+
+            if (day >= 1 && day <= 5 && hour >= 8 && hour < 19) {
+                statusBadge.className = 'status-badge open';
+                statusText.textContent = 'Ouvert actuellement';
+            } else {
+                statusBadge.className = 'status-badge closed';
+                statusText.textContent = 'Fermé actuellement';
+            }
+        }
+        updateCabinetStatus();
     </script>
 </body>
 </html>
