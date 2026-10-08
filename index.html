@@ -1119,6 +1119,164 @@ html.intro-active, html.intro-active body { overflow: hidden; }
   })();
 </script>
 <!-- ===== FIN MENU MOBILE PHYSIORIS ===== -->
+ <!-- ===== SÉLECTEUR DE LANGUE FR / DE PHYSIORIS : à coller UNE FOIS, juste avant </head>, EN DERNIER (après l'intro et le menu mobile) ===== -->
+<style>
+  .lang-switch { display: inline-flex; flex-shrink: 0; overflow: hidden; border: 1.5px solid var(--gold-primary, #C5A059); border-radius: 6px; }
+  .lang-switch button {
+    height: 41px; padding: 0 12px; border: 0; cursor: pointer; background: #000;
+    color: var(--text-muted, #B0B0B0); font: 600 .8rem 'Inter', system-ui, sans-serif; letter-spacing: 1px;
+  }
+  .lang-switch button.active { background: var(--gold-primary, #C5A059); color: #000; }
+  .lang-switch button:not(.active):hover { color: var(--gold-primary, #C5A059); }
+  /* Sur téléphone : le sélecteur du bandeau est masqué, celui du menu burger prend le relais */
+  @media (max-width: 768px) { header > .container .lang-switch, .nav-container .lang-switch { display: none; } }
+  .mobile-menu .lang-switch { display: inline-flex; margin: 0 24px 22px; }
+  #intro .lang-switch { position: absolute; top: 24px; right: 24px; z-index: 3; transition: opacity .3s ease; }
+  #intro .lang-switch button { height: 34px; padding: 0 11px; }
+  #intro.zoom .lang-switch { opacity: 0; }
+</style>
+<script>
+  (function () {
+    // [sélecteur, allemand (texte | tableau dans l'ordre de la page | null = inchangé), mode : '' texte, 'h' html, 'ph' placeholder]
+    var E = [
+      ['.nav-links a', ['Start', 'Behandlungen', 'Team', 'FAQ', 'Kontakt']],
+      ['.mobile-menu a.mm-link', ['Start', 'Behandlungen', 'Team', 'FAQ', 'Kontakt']],
+      ['.mobile-menu .mm-cta', 'Termin vereinbaren'],
+      ['#openModalBtn', 'Termin buchen'],
+      ['.hero-title', 'Zentrum für Kinesitherapie & Rehabilitation'],
+      ['.hero-description', 'Ihr Zentrum für Behandlung und Rehabilitation in Baelen. Eine persönliche Betreuung, abgestimmt auf Ihre Gesundheits- und Leistungsziele.'],
+      ['#openModalBtnHero', 'Online Termin vereinbaren'],
+      ['.hero-cta a', 'Unsere Behandlungen entdecken'],
+      ['.info-text h4', ['Adresse', 'Direkter Kontakt', 'Sprechzeiten']],
+      ['.info-text p', [null, null, 'Montag bis Freitag von 08:00 bis 19:00 Uhr (nach Terminvereinbarung)']],
+      ['.section-tag', ['Unsere Behandlungen', 'Unser Therapeut', 'Patienteninformation', 'Standort & Kontakt']],
+      ['.section-title', ['Behandlungen & Fachgebiete', 'Das Team des Zentrums', 'Häufige Fragen', 'So finden Sie uns']],
+      ['.filter-btn', ['Alle Behandlungen', 'Sport & Reathletik', 'Osteopathie', 'Post-OP & Sonstiges']],
+      ['.service-title', ['SPORTKINESITHERAPIE', 'OSTEOPATHIE', 'POSTOPERATIVE KINESITHERAPIE', 'ALLGEMEINE & FUNKTIONELLE KINESITHERAPIE']],
+      ['.service-desc', [
+        'Gezielte Betreuung für Sportler. Reathletik, Behandlung von Verstauchungen und Muskelfaserrissen sowie Verletzungsprävention.',
+        'Die Osteopathie ist eine manuelle Therapie, die den Körper als Ganzes betrachtet. Durch sanfte, gezielte Griffe löst sie Muskel- und Gelenkverspannungen, verbessert die Beweglichkeit und lindert chronische oder akute Schmerzen (Rücken, Nacken, Gelenke).',
+        'Vom Verlassen des OP-Saals bis zur Selbstständigkeit: eine schrittweise und sichere Begleitung, um nach Ihrer Operation Kraft, Beweglichkeit und Vertrauen zurückzugewinnen – mit angepassten Techniken und modernen Geräten.',
+        'Umfassende Behandlung von alltäglichen Schmerzen und Beschwerden: Verstauchungen, Sehnenentzündungen, Gelenk- und Muskelschmerzen – für mehr Beweglichkeit und Komfort im Alltag.']],
+      ['.service-action-link', 'Behandlung buchen →'],
+      ['.practitioner-subtitle', 'Kinesitherapeut • Gründer'],
+      ['.google-reviews-mini', '(Google-Bewertungen)'],
+      ['.practitioner-card .btn-gold-outline', 'Meinen Werdegang entdecken'],
+      ['.parcours-details h3', 'Werdegang & Expertise'],
+      ['.parcours-details > p', 'Seit 2022 bin ich diplomierter Kinesitherapeut (Haute Ecole de la Province de Liège, HEPL) und begleite vor allem Patienten in der funktionellen, postoperativen und sportlichen Rehabilitation. Mein Ansatz verbindet manuelle Therapie, therapeutisches Training und moderne Rehabilitationstechnologien.'],
+      ['.parcours-details h4', ['Erfahrungen', 'Weiterbildungen']],
+      ['.parcours-details li', ['Freiberuflicher Kinesitherapeut in Kelmis', 'Kinesitherapeut im St. Nikolaus-Hospital Eupen', 'Osteopathie IAO, 5. Studienjahr', 'Sportkinesitherapie', 'Schröpftherapie']],
+      ['.stat-label', ['Praxisfläche', 'Jahre Erfahrung', 'Individuelle Betreuung']],
+      ['.faq-question span', ['Wo kann ich bei meinem Besuch parken?', 'Brauche ich ein ärztliches Rezept?', 'Wie vereinbare ich einen Termin?', 'Welche Zahlungsmittel werden akzeptiert?']],
+      ['.faq-answer p', [
+        "Das Zentrum befindet sich in der Rue de l'église 9 in Baelen, mit bequemen Parkmöglichkeiten in unmittelbarer Nähe. Kostenlose Parkplätze finden Sie insbesondere auf dem Platz auf Höhe der <a href='https://www.google.com/maps/search/?api=1&query=Pizza+Bella+Baelen' target='_blank'>Pizza Bella in Baelen</a>.",
+        'Für die Kinesitherapie ist eine ärztliche Verordnung erforderlich, damit die Krankenkasse die Kosten erstattet. Osteopathie-Sitzungen hingegen erfordern keine vorherige Verordnung.',
+        "Sie können uns direkt telefonisch oder per WhatsApp unter <a href='https://wa.me/32494279799'>+32 494 27 97 99</a> kontaktieren oder die Schaltfläche zur Terminvereinbarung auf der Website nutzen.",
+        'Wir akzeptieren Barzahlung sowie elektronische Überweisungen/Payconiq am Ende der Sitzung oder der Behandlungsserie.'], 'h'],
+      ['.contact-card > p', 'Ein Raum für Gesundheit, Beweglichkeit und Leistung.'],
+      ['.contact-info-list h5', ['Adresse', 'Kontakt', 'Öffnungszeiten']],
+      ['.contact-info-list li:last-child p', 'Montag bis Freitag: 08:00 – 19:00 Uhr'],
+      ['.modal-title', 'Termin vereinbaren'],
+      ['.modal-desc', 'Senden Sie uns direkt eine WhatsApp-Nachricht, um Ihren Termin zu buchen.'],
+      ['.form-group label', ['Vor- und Nachname', 'Gewünschte Behandlung']],
+      ['#patientName', 'z. B. Max Mustermann', 'ph'],
+      ['#patientService option', ['Sportkinesitherapie', 'Osteopathie', 'Postoperative Kinesitherapie', 'Allgemeine & funktionelle Kinesitherapie']],
+      ['#rdvForm button[type=submit]', 'Über WhatsApp senden'],
+      ['footer p', '© 2026 PHYSIORIS – Alle Rechte vorbehalten. Zentrum für Kinesitherapie & Osteopathie in Baelen.'],
+      ['#intro .intro-sub', 'ZENTRUM <span class="gold">FÜR REHABILITATION</span>', 'h'],
+      ['#intro .intro-cta > span:first-child', 'Das Zentrum betreten']
+    ];
+    var STATUS = { 'Ouvert actuellement': 'Derzeit geöffnet', 'Fermé actuellement': 'Derzeit geschlossen', 'Vérification...': 'Überprüfung…' };
+    var SERVICES = { 'Kinésithérapie du Sport': 'Sportkinesitherapie', 'Ostéopathie': 'Osteopathie', 'Kinésithérapie Post-Op': 'Postoperative Kinesitherapie', 'Kinésithérapie Générale & Fonctionnelle': 'Allgemeine & funktionelle Kinesitherapie' };
+    var TITLE_DE = 'Physioris – Zentrum für Kinesitherapie & Osteopathie | Baelen';
+    var DESC_DE = 'Zentrum für Kinesitherapie und Osteopathie in Baelen unter der Leitung von Amaury Joiris. Spezialisierte Behandlungen, Sport- und postoperative Rehabilitation.';
+    var lang = 'fr';
+
+    function firstText(el) {
+      for (var n = el.firstChild; n; n = n.nextSibling) if (n.nodeType === 3 && n.nodeValue.trim()) return n;
+      return null;
+    }
+    function put(el, val, mode) {          // val === null : restaurer le français d'origine
+      if (mode === 'h') { if (el.__fr === undefined) el.__fr = el.innerHTML; el.innerHTML = val === null ? el.__fr : val; return; }
+      if (mode === 'ph') { if (el.__fr === undefined) el.__fr = el.getAttribute('placeholder'); el.setAttribute('placeholder', val === null ? el.__fr : val); return; }
+      var tn = firstText(el);
+      if (!tn) return;
+      if (el.__fr === undefined) el.__fr = tn.nodeValue;
+      tn.nodeValue = val === null ? el.__fr : el.__fr.match(/^\s*/)[0] + val + el.__fr.match(/\s*$/)[0];
+    }
+    function apply() {
+      var de = lang === 'de';
+      E.forEach(function (r) {
+        document.querySelectorAll(r[0]).forEach(function (el, i) {
+          var v = Array.isArray(r[1]) ? r[1][i] : r[1];
+          if (de) { if (v != null) put(el, v, r[2]); } else if (el.__fr !== undefined) put(el, null, r[2]);
+        });
+      });
+      var st = document.getElementById('status-text');
+      if (st) {
+        var t = st.textContent.trim();
+        if (de && STATUS[t]) st.textContent = STATUS[t];
+        if (!de) Object.keys(STATUS).forEach(function (k) { if (STATUS[k] === t) st.textContent = k; });
+      }
+      var meta = document.querySelector('meta[name="description"]');
+      if (document.__titleFr === undefined) { document.__titleFr = document.title; document.__descFr = meta ? meta.content : ''; }
+      document.title = de ? TITLE_DE : document.__titleFr;
+      if (meta) meta.content = de ? DESC_DE : document.__descFr;
+      document.documentElement.lang = lang;
+      var rdv = document.getElementById('openModalBtn');
+      if (rdv) rdv.setAttribute('aria-label', de ? 'Termin vereinbaren' : 'Prendre rendez-vous');
+      document.querySelectorAll('.lang-switch button').forEach(function (b) {
+        var on = b.getAttribute('data-lang') === lang;
+        b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    function setLang(l, save) {
+      lang = l; apply();
+      if (save) { try { localStorage.setItem('physioris-lang', l); } catch (e) {} }
+    }
+    function makeSwitch() {
+      var d = document.createElement('div');
+      d.className = 'lang-switch'; d.setAttribute('role', 'group'); d.setAttribute('aria-label', 'Langue / Sprache');
+      d.innerHTML = '<button type="button" data-lang="fr" aria-label="Français">FR</button><button type="button" data-lang="de" aria-label="Deutsch">DE</button>';
+      return d;
+    }
+    function decorate() {                  // ajoute le sélecteur partout où il manque (bandeau, menu burger, intro)
+      var rdv = document.getElementById('openModalBtn');
+      if (rdv && rdv.parentNode && !rdv.parentNode.querySelector('.lang-switch')) rdv.parentNode.insertBefore(makeSwitch(), rdv);
+      var mm = document.getElementById('mobileMenu');
+      if (mm && !mm.querySelector('.lang-switch')) mm.appendChild(makeSwitch());
+      var intro = document.getElementById('intro');
+      if (intro && !intro.querySelector('.lang-switch')) { intro.appendChild(makeSwitch()); apply(); }
+    }
+
+    // Message WhatsApp en allemand quand le site est en allemand
+    document.addEventListener('submit', function (e) {
+      if (lang !== 'de' || !e.target || e.target.id !== 'rdvForm') return;
+      e.preventDefault(); e.stopImmediatePropagation();
+      var name = document.getElementById('patientName').value;
+      var fr = document.getElementById('patientService').value;
+      var msg = 'Guten Tag, mein Name ist ' + name + '. Ich möchte einen Termin vereinbaren für: ' + (SERVICES[fr] || fr) + '.';
+      window.open('https://wa.me/32494279799?text=' + encodeURIComponent(msg), '_blank');
+      var c = document.getElementById('closeModalBtn'); if (c) c.click();
+    }, true);
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.lang-switch button');
+      if (b) setLang(b.getAttribute('data-lang'), true);
+    });
+
+    function init() {
+      decorate();
+      var saved = null;
+      try { saved = localStorage.getItem('physioris-lang'); } catch (e) {}
+      // 1re visite : allemand si le navigateur du visiteur est en allemand, sinon français
+      setLang(saved || ((navigator.language || '').slice(0, 2) === 'de' ? 'de' : 'fr'), false);
+      new MutationObserver(decorate).observe(document.body, { childList: true });   // intro ajoutée après coup
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  })();
+</script>
+<!-- ===== FIN SÉLECTEUR DE LANGUE PHYSIORIS ===== -->
+
 </head>
 <body>
 
