@@ -1008,7 +1008,117 @@ html.intro-active, html.intro-active body { overflow: hidden; }
 </script>
 <!-- ===== FIN INTRO PHYSIORIS ===== -->
 
+<!-- ===== MENU MOBILE PHYSIORIS : à coller UNE FOIS, juste avant </head> (après le bloc d'intro) ===== -->
+<style>
+  /* Caché sur ordinateur */
+  .nav-burger, .mobile-menu { display: none; }
+  .nav-actions { display: flex; align-items: center; gap: 10px; }
 
+  .nav-burger {
+    width: 44px; height: 44px; padding: 0; position: relative; flex-shrink: 0; cursor: pointer;
+    background: #000; border: 1.5px solid var(--gold-primary, #C5A059); border-radius: 6px;
+  }
+  .nav-burger span {
+    position: absolute; left: 11px; right: 11px; height: 2px; border-radius: 2px;
+    background: var(--gold-primary, #C5A059);
+    transition: transform .3s ease, opacity .2s ease, top .3s ease;
+  }
+  .nav-burger span:nth-child(1) { top: 14px; }
+  .nav-burger span:nth-child(2) { top: 20px; }
+  .nav-burger span:nth-child(3) { top: 26px; }
+  .nav-burger[aria-expanded="true"] span:nth-child(1) { top: 20px; transform: rotate(45deg); }
+  .nav-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-burger[aria-expanded="true"] span:nth-child(3) { top: 20px; transform: rotate(-45deg); }
+
+  .mobile-menu {
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: rgba(18, 18, 18, .98); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(197, 160, 89, .4); box-shadow: 0 20px 40px rgba(0, 0, 0, .6);
+    max-height: calc(100vh - 80px); max-height: calc(100dvh - 80px); overflow-y: auto;
+    visibility: hidden; opacity: 0; transform: translateY(-8px);
+    transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
+  }
+  .mobile-menu.open { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+  .mobile-menu a.mm-link {
+    display: block; padding: 16px 24px; font-size: 1.05rem; font-weight: 500;
+    color: var(--text-body, #E0E0E0); border-bottom: 1px solid var(--border-color, #2D2D2D);
+  }
+  .mobile-menu a.mm-link:hover, .mobile-menu a.mm-link.active { color: var(--gold-primary, #C5A059); }
+  .mobile-menu .mm-cta { margin: 18px 24px 22px; width: calc(100% - 48px); }
+
+  @media (max-width: 768px) {
+    .nav-burger { display: block; }
+    .mobile-menu { display: block; }
+  }
+  /* Petits écrans : bouton RDV réduit à l'icône WhatsApp (le libellé complet est dans le menu) */
+  @media (max-width: 480px) {
+    .logo-container { gap: 10px; }
+    .logo-title { font-size: 1.1rem; letter-spacing: 1.5px; }
+    .nav-actions #openModalBtn { font-size: 0; padding: 0; width: 44px; height: 44px; gap: 0; }
+    .nav-actions #openModalBtn i { font-size: 1.3rem; }
+  }
+</style>
+<script>
+  (function () {
+    function init() {
+      var header = document.getElementById('header') || document.querySelector('header');
+      var nav = header && header.querySelector('.nav-links');
+      var container = header && header.querySelector('.nav-container');
+      if (!header || !nav || !container || document.getElementById('mobileMenu')) return;
+
+      // Bouton burger, regroupé à droite avec le bouton RDV existant
+      var burger = document.createElement('button');
+      burger.type = 'button'; burger.className = 'nav-burger'; burger.id = 'navBurger';
+      burger.setAttribute('aria-label', 'Ouvrir le menu');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-controls', 'mobileMenu');
+      burger.innerHTML = '<span></span><span></span><span></span>';
+
+      var actions = document.createElement('div');
+      actions.className = 'nav-actions';
+      var rdv = container.querySelector('#openModalBtn');
+      if (rdv) { container.insertBefore(actions, rdv); actions.appendChild(rdv); rdv.setAttribute('aria-label', 'Prendre rendez-vous'); }
+      else container.appendChild(actions);
+      actions.appendChild(burger);
+
+      // Panneau : les liens sont copiés depuis votre menu actuel (toujours synchronisés)
+      var menu = document.createElement('nav');
+      menu.className = 'mobile-menu'; menu.id = 'mobileMenu'; menu.setAttribute('aria-label', 'Menu principal');
+      nav.querySelectorAll('a').forEach(function (a) {
+        var l = document.createElement('a');
+        l.className = 'mm-link' + (a.classList.contains('active') ? ' active' : '');
+        l.href = a.getAttribute('href');
+        l.textContent = a.textContent.trim();
+        menu.appendChild(l);
+      });
+      var cta = document.createElement('button');
+      cta.type = 'button'; cta.className = 'btn-gold-outline mm-cta';
+      cta.innerHTML = '<i class="fab fa-whatsapp whatsapp-icon-green"></i> Prendre rendez-vous';
+      menu.appendChild(cta);
+      header.appendChild(menu);
+
+      function set(open) {
+        menu.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      }
+      burger.addEventListener('click', function () { set(!menu.classList.contains('open')); });
+      menu.addEventListener('click', function (e) { if (e.target.closest('a.mm-link')) set(false); });
+      cta.addEventListener('click', function () {
+        set(false);
+        var b = document.getElementById('openModalBtn') || document.getElementById('openModalBtnHero');
+        if (b) b.click();
+      });
+      document.addEventListener('click', function (e) { if (!header.contains(e.target)) set(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+      var mq = window.matchMedia('(min-width: 769px)');
+      var onChange = function (m) { if (m.matches) set(false); };
+      if (mq.addEventListener) mq.addEventListener('change', onChange); else mq.addListener(onChange);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  })();
+</script>
+<!-- ===== FIN MENU MOBILE PHYSIORIS ===== -->
 </head>
 <body>
 
